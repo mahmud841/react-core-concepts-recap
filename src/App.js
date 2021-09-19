@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 function App() {
   return (
     <div className="App">
+      <MyComments></MyComments>
+      <ToDos></ToDos>
       <LoadUsers></LoadUsers>
       <MyComponent brand="Being Human" price="3 crore"></MyComponent>
       <MyComponent brand="Google" price="10000"></MyComponent>
@@ -12,6 +14,68 @@ function App() {
     </div>
   );
 }
+
+function MyComments (){
+  const [comments, setComments] = useState([]);
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/comments')
+    .then(res => res.json())
+    // .then(data => console.log(data))
+    .then(data =>  setComments(data))
+  }, [])
+  return (
+    <div>
+      <h2>Comments:{comments.length} </h2>
+      {
+        // comments.map(comment => <h3>{comment.name} {comment.email}</h3>)
+        comments.map(comment => <Comments name={comment.name} eamil={comment.email} body={comment.body}></Comments>)
+      }
+    </div>
+  )
+}
+
+function Comments (props){
+  return(
+    <div className="comments">
+      <h2>Name:{props.name}</h2>
+      <h5>Email:{props.eamil}</h5>
+      <p style= {{color:"lightblue"}}>Body:{props.body}</p>
+    </div>
+  )
+}
+
+
+function ToDos() {
+  const [todos, setTodos] =useState([]);
+  useEffect (() => {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+    .then(res => res.json())
+    // .then(data => console.log(data))
+    .then(data => setTodos(data))
+  }, [])
+  return(
+    <div>
+      <h1>ToDo List:{todos.length} </h1>
+      {
+        // todos.map(todo => <h3>{todo.title} {todo.userId}</h3>)
+        todos.map(todo => <ToDos2 userId={todo.userId} id= {todo.id} title={todo.title} ></ToDos2>)
+      }
+    </div>
+  )
+}
+// function akare dekhano 
+function ToDos2(props){
+  return(
+    <div className="user">
+      <h2>UserId: {props.userId}</h2>
+      <h3>TodoList: {props.id}</h3>
+      <p>Title:{props.title}</p>
+    </div>
+  )
+}
+
+
+
 
 function LoadUsers () {
   const [users,setUsers] = useState([]);
