@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+
+.user{
+  background-color: #61dafb;
+  color:beige;
+  margin: 15px;
+  padding: 5px;
+  border: 5px solid salmon;
+  border-radius: 15px;
+}
